@@ -10,7 +10,7 @@ add_compile_options(-ftrivial-auto-var-init=zero)
 ########
 find_library(UUID_STATIC_LIB NAMES libuuid.a REQUIRED)
 find_library(Z_STATIC_LIB NAMES libz.a REQUIRED)
-find_library(SSL_STATIC_LIB NAMES libwolfssl.a REQUIRED)
+find_library(SSL_STATIC_LIB NAMES libcrypto.a REQUIRED)
 
 if (UUID_STATIC_LIB)
     message("find libuuid.a at ${UUID_STATIC_LIB}")
@@ -25,9 +25,9 @@ else ()
 endif ()
 
 if (SSL_STATIC_LIB)
-    message("find libwolfssl.a at ${SSL_STATIC_LIB}")
+    message("find libcrypto.a at ${SSL_STATIC_LIB}")
 else ()
-    fatal("libwolfssl.a not found")
+    fatal("libcrypto.a not found")
 endif ()
 
 ########
