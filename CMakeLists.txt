@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
-project(gsi_updater)
+project(dsu_updater)
 
 set(CMAKE_CXX_STANDARD 23)
 
@@ -59,17 +59,6 @@ add_library(ext4_utils STATIC
 target_include_directories(ext4_utils
         PUBLIC platform-system-extras/ext4_utils/include
 )
-
-#######
-#add_library(f2fs_utils STATIC
-#        platform-system-extras/f2fs_utils/f2fs_sparseblock.c
-#)
-#
-#target_include_directories(f2fs_utils
-#        PUBLIC platform-system-extras/f2fs_utils
-#)
-#
-#target_link_libraries(f2fs_utils PUBLIC base)
 
 #######
 add_library(gsid STATIC
@@ -137,6 +126,6 @@ target_include_directories(fs_mgr PUBLIC
 target_link_libraries(fs_mgr PUBLIC base gsid ext4_utils sparse ${UUID_STATIC_LIB} ${Z_STATIC_LIB} ${SSL_STATIC_LIB})
 
 ########
-add_executable(gsi_updater main.cpp)
+add_executable(dsu_updater main.cpp)
 
-target_link_libraries(gsi_updater fs_mgr)
+target_link_libraries(dsu_updater fs_mgr)
