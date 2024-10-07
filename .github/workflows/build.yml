@@ -26,7 +26,7 @@ jobs:
       - name: install dependencies
         run: |
           sudo chroot /rootfs-build /bin/su -l root -c /bin/bash -c "apt-get update"
-          sudo chroot /rootfs-build /bin/su -l root -c /bin/bash -c "apt install g++ cmake uuid-dev zlib1g-dev libssl-dev build-essential git"
+          sudo chroot /rootfs-build /bin/su -l root -c /bin/bash -c "apt-get install -y g++ cmake uuid-dev zlib1g-dev libssl-dev build-essential git"
 
       - name: copy source
         run: |
