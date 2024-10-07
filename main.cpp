@@ -62,14 +62,6 @@ int main() {
 
     std::string targetImg = images[i];
     std::cout << "Selected " << targetImg << "\n";
-    auto mapped = android::fiemap::MappedDevice::Open(imageManager.get(), std::chrono::seconds(5), targetImg);
-    if (mapped.get() == nullptr) {
-        std::cerr << "MappedDevice::Open " << targetImg << " failed\n";
-        return -1;
-    }
-
-    std::cerr << "  Mapped path " << mapped->path() << "\n";
-    std::cerr << "  Mapped fd " << mapped->fd() << "\n";
 
     std::string newImagePath;
     while (true) {
@@ -97,6 +89,23 @@ int main() {
     off_t total_size = st.st_size;
     off_t copied_size = 0;
 
+    imageManager->UnmapImageIfExists(targetImg);
+    imageManager->DeleteBackingImage(targetImg);
+    std::cout << "Creating backing image " << targetImg << "\n";
+    int flags =
+            android::fiemap::ImageManager::CREATE_IMAGE_DEFAULT || android::fiemap::ImageManager::CREATE_IMAGE_READONLY;
+    imageManager->CreateBackingImage(targetImg, total_size, flags, [](uint64_t actual, uint64_t max) {
+        std::cout << "  Actual written " << actual << ", file size " << max << "\n";
+        return true;
+    });
+    auto mapped = android::fiemap::MappedDevice::Open(imageManager.get(), std::chrono::seconds(5), targetImg);
+    if (mapped.get() == nullptr) {
+        std::cerr << "MappedDevice::Open " << targetImg << " failed\n";
+        return -1;
+    }
+
+    std::cerr << "  Mapped path " << mapped->path() << "\n";
+    std::cerr << "  Mapped fd " << mapped->fd() << "\n";
 
     uint8_t buf[1024];
 
