@@ -4,11 +4,14 @@ cd "$(dirname "$0")" || exit 1
 
 echo "Cloning repositories..."
 
-git clone https://mirror.bfsu.edu.cn/git/AOSP/platform/system/core.git/ platform-system-core
-git clone https://mirror.bfsu.edu.cn/git/AOSP/platform/system/extras.git/ platform-system-extras
-git clone https://mirror.bfsu.edu.cn/git/AOSP/platform/system/gsid.git/ platform-system-gsid
-git clone https://mirror.bfsu.edu.cn/git/AOSP/platform/system/libbase.git/ platform-system-libbase
-git clone https://mirror.bfsu.edu.cn/git/AOSP/platform/system/logging.git/ platform-system-logging
+#URL="https://mirrors.bfsu.edu.cn/git/AOSP"
+URL="https://android.googlesource.com"
+
+git clone "$URL"/platform/system/core.git/ platform-system-core
+git clone "$URL"/platform/system/extras.git/ platform-system-extras
+git clone "$URL"/platform/system/gsid.git/ platform-system-gsid
+git clone "$URL"/platform/system/libbase.git/ platform-system-libbase
+git clone "$URL"/platform/system/logging.git/ platform-system-logging
 
 echo "Checking out specific commits..."
 

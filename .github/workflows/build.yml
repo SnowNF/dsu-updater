@@ -37,7 +37,7 @@ jobs:
         run: |
           sudo chroot /rootfs-build /bin/su -l root -c /bin/bash -c "cd /project && bash -e init_source.sh"
           sudo chroot /rootfs-build /bin/su -l root -c /bin/bash -c "cd /project && cmake -B build"
-          sudo chroot /rootfs-build /bin/su -l root -c /bin/bash -c "cd /project && cmake --build build"
+          sudo chroot /rootfs-build /bin/su -l root -c /bin/bash -c "cd /project && cmake --build build -j"
 
       - name: upload build artifacts
         uses: actions/upload-artifact@v4
