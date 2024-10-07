@@ -1,0 +1,19 @@
+Subject: [PATCH] do not include android_filesystem_config.h
+---
+Index: liblog/logger_write.cpp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/liblog/logger_write.cpp b/liblog/logger_write.cpp
+--- a/liblog/logger_write.cpp	(revision b34720941c1a18249615ebed5a25d05ff12bfad1)
++++ b/liblog/logger_write.cpp	(date 1728228652000)
+@@ -33,7 +33,7 @@
+ 
+ #include <android-base/errno_restorer.h>
+ #include <android-base/macros.h>
+-#include <private/android_filesystem_config.h>
++//#include <private/android_filesystem_config.h>
+ #include <private/android_logger.h>
+ 
+ #include "android/log.h"

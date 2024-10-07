@@ -1,0 +1,71 @@
+Subject: [PATCH] Include files to fix building & fix GetPartitionAbsolutePath
+---
+Index: fs_mgr/libfiemap/fiemap_status.cpp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fs_mgr/libfiemap/fiemap_status.cpp b/fs_mgr/libfiemap/fiemap_status.cpp
+--- a/fs_mgr/libfiemap/fiemap_status.cpp	(revision e563c3f48a2478ea909f2fe08790e53bc7787b70)
++++ b/fs_mgr/libfiemap/fiemap_status.cpp	(date 1728228651975)
+@@ -15,6 +15,7 @@
+  */
+ 
+ #include <libfiemap/fiemap_status.h>
++#include <cstring>
+ 
+ namespace android::fiemap {
+ 
+Index: fs_mgr/libdm/dm.cpp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fs_mgr/libdm/dm.cpp b/fs_mgr/libdm/dm.cpp
+--- a/fs_mgr/libdm/dm.cpp	(revision e563c3f48a2478ea909f2fe08790e53bc7787b70)
++++ b/fs_mgr/libdm/dm.cpp	(date 1728228651983)
+@@ -33,7 +33,7 @@
+ #include <android-base/properties.h>
+ #include <android-base/strings.h>
+ #include <uuid/uuid.h>
+-
++#include <cstring>
+ #include "utility.h"
+ 
+ #ifndef DM_DEFERRED_REMOVE
+Index: fs_mgr/liblp/partition_opener.cpp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fs_mgr/liblp/partition_opener.cpp b/fs_mgr/liblp/partition_opener.cpp
+--- a/fs_mgr/liblp/partition_opener.cpp	(revision e563c3f48a2478ea909f2fe08790e53bc7787b70)
++++ b/fs_mgr/liblp/partition_opener.cpp	(date 1728228651989)
+@@ -38,7 +38,8 @@
+ namespace {
+ 
+ std::string GetPartitionAbsolutePath(const std::string& path) {
+-#if !defined(__ANDROID__)
++//#if !defined(__ANDROID__)
++#if 0
+     return path;
+ #else
+     if (android::base::StartsWith(path, "/")) {
+Index: fs_mgr/libfiemap/include/libfiemap/fiemap_writer.h
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fs_mgr/libfiemap/include/libfiemap/fiemap_writer.h b/fs_mgr/libfiemap/include/libfiemap/fiemap_writer.h
+--- a/fs_mgr/libfiemap/include/libfiemap/fiemap_writer.h	(revision e563c3f48a2478ea909f2fe08790e53bc7787b70)
++++ b/fs_mgr/libfiemap/include/libfiemap/fiemap_writer.h	(date 1728228652026)
+@@ -28,6 +28,9 @@
+ #include <android-base/unique_fd.h>
+ 
+ #include <libfiemap/fiemap_status.h>
++#include <memory>
++#include <linux/magic.h>
++#include <cstring>
+ 
+ namespace android {
+ namespace fiemap {
