@@ -11,6 +11,7 @@ On an aarch64 GNU/Linux system, install the required dependencies such as `g++`,
 Then, run the following commands:
 
 ```bash
+bash -e init_source.sh
 cmake -B build .
 cmake --build build -j
 ```

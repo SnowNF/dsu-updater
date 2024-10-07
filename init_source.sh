@@ -29,7 +29,7 @@ for patch_dir in patch/*/; do
         for patch_file in "$patch_dir"*.patch; do
             if [ -f "$patch_file" ]; then
                 echo "Applying patch $patch_file to $repo_dir"
-                git -C "$repo_dir" apply "$patch_file"
+                git -C "$repo_dir" apply "$(realpath "$patch_file")"
             fi
         done
     else
